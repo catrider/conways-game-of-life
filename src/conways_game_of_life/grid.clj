@@ -12,17 +12,21 @@
   [grid [x y :as cell]]
   (get (get grid x) y))
 
+(defn- neighbor-cells
+  [grid [cx cy :as target-cell]]
+  (for [x (range (- cx 1) (+ cx 2))
+        y (range (- cy 1) (+ cy 2))
+        :when (not= target-cell (list x y))]
+    (vector x y)))
+
 (defn live-neighbors-count
-  [grid [cx cy :as cell]]
+  [grid [cx cy :as target-cell]]
   (count
    (filter
     (partial = 1)
     (map
      (partial value-at-cell grid)
-     (for [x (range (- cx 1) (+ cx 2))
-           y (range (- cy 1) (+ cy 2))
-           :when (not= cell (list x y))]
-       (vector x y))))))
+     (neighbor-cells grid target-cell)))))
 
 (defn next-generation
   [grid]
