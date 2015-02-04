@@ -13,30 +13,34 @@
   (get (get grid x) y))
 
 (defn live-neighbors-count
-  [grid [x y :as cell]]
+  [grid [cx cy :as cell]]
   (count
    (filter
     (partial = 1)
     (map
      (partial value-at-cell grid)
-     (for [x (range (- x 1) (+ x 2))
-           y (range (- y 1) (+ y 2))]
+     (for [x (range (- cx 1) (+ cx 2))
+           y (range (- cy 1) (+ cy 2))
+           :when (not= cell (list x y))]
        (vector x y))))))
 
 (defn next-generation
   [grid]
-  (partition
-   (width grid)
+  (vec
    (map
-    (fn next-generation-cell
-      [cell]
-      (let [live-neighbors-count (live-neighbors-count grid cell)]
-        (cond
-         (< 2 live-neighbors-count) 0
-         (and
-          (>= 2 live-neighbors-count)
-          (<= 3 live-neighbors-count)) 1
-         :else 0)))
-    (for [x (range (height grid))
-          y (range (width grid))]
-      (vector x y)))))
+    vec
+    (partition
+     (width grid)
+     (map
+      (fn next-generation-cell
+        [cell]
+        (let [live-neighbors-count (live-neighbors-count grid cell)]
+          (cond
+           (< live-neighbors-count 2) 0
+           (and
+            (>= live-neighbors-count 2)
+            (<= live-neighbors-count 3)) 1
+           :else 0)))
+      (for [x (range (height grid))
+            y (range (width grid))]
+        (vector x y)))))))

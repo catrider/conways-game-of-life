@@ -5,25 +5,36 @@
 (deftest next-test
   (testing "Any live cell with fewer than two live neighbours dies, as if caused by under-population"
     (testing "Any live cell with 0 neighbours dies"
-      (is (= [[0 0 0]
-              [0 0 0]
-              [0 0 0]]
-             (next-generation [[0 0 0]
-                               [0 1 0]
-                               [0 0 0]]))))
+      (is (= 0
+             (value-at-cell (next-generation [[0 0 0]
+                                              [0 1 0]
+                                              [0 0 0]]) [1 1]))))
     (testing "Any live cell with 1 neighbours dies"
-      (is (= [[0 0 0]
-              [0 0 0]
-              [0 0 0]]
-             (next-generation [[1 0 0]
-                               [0 1 0]
-                               [0 0 0]]))))))
+      (is (= 0
+             (value-at-cell (next-generation [[1 0 0]
+                                              [0 1 0]
+                                              [0 0 0]]) [1 1])))))
+  (testing "Any live cell with two or three live neighbours lives on to the next generation"
+    (testing "Any live cell with 2 neighbours lives"
+      (is (= 1
+             (value-at-cell (next-generation [[0 1 0]
+                                              [0 1 1]
+                                              [0 0 0]]) [1 1]))))
+    (testing "Any live cell with 3 neighbours lives"
+      (is (= 1
+             (value-at-cell (next-generation [[0 1 0]
+                                              [0 1 1]
+                                              [1 0 0]]) [1 1]))))))
 
-(deftest live-neighbors-cound-test
+(deftest live-neighbors-count-test
   (testing "Returns number of live neighbors of a cell"
     (testing "When target cell is in the middle of the grid"
       (is (= 5 (live-neighbors-count [[0 1 1]
                                       [1 0 1]
+                                      [1 0 0]] [1 1]))))
+    (testing "And doesn't include the target coordinate"
+      (is (= 5 (live-neighbors-count [[0 1 1]
+                                      [1 1 1]
                                       [1 0 0]] [1 1]))))))
 
 (deftest value-at-cell-test
