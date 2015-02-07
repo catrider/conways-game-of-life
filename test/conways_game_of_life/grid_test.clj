@@ -50,7 +50,20 @@
       (is (= 0
              (value-at-cell (next-generation [[1 1 1]
                                               [1 1 1]
-                                              [1 1 1]]) [1 1]))))))
+                                              [1 1 1]]) [1 1])))))
+  (testing "Any dead cell with exactly three live neighbours becomes a live cell, as if by reproduction."
+    (is (= 1
+           (value-at-cell (next-generation [[1 0 0]
+                                            [1 0 0]
+                                            [0 0 1]]) [1 1])))
+    (is (= 1
+           (value-at-cell (next-generation [[0 0 0]
+                                            [1 0 0]
+                                            [0 0 1]]) [1 1])))
+    (is (= 1
+           (value-at-cell (next-generation [[1 0 0]
+                                            [1 0 1]
+                                            [0 0 1]]) [1 1])))))
 
 (deftest live-neighbors-count-test
   (testing "Returns number of live neighbors of a cell"
