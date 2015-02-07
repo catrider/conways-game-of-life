@@ -42,14 +42,15 @@
      (map
       (fn next-generation-cell
         [cell]
-        (let [live-neighbors-count (live-neighbors-count grid cell)]
+        (let [live-neighbors-count (live-neighbors-count grid cell)
+              live-neighbors-count-equals? (partial = live-neighbors-count)]
           (if (alive? grid cell)
             (cond
              (or
-              (= live-neighbors-count 2)
-              (= live-neighbors-count 3)) 1
+              (live-neighbors-count-equals? 2)
+              (live-neighbors-count-equals? 3)) 1
              :else 0)
-            (if (= 3 live-neighbors-count)
+            (if (live-neighbors-count-equals? 3)
               1
               0))))
       (for [x (range (height grid))
