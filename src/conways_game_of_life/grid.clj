@@ -28,6 +28,10 @@
      (partial value-at-cell grid)
      (neighbor-cells grid target-cell)))))
 
+(defn- alive?
+  [grid [cx cy :as target-cell]]
+  (= 1 (value-at-cell grid target-cell)))
+
 (defn next-generation
   [grid]
   (vec
@@ -39,11 +43,15 @@
       (fn next-generation-cell
         [cell]
         (let [live-neighbors-count (live-neighbors-count grid cell)]
-          (cond
-           (and
-            (>= live-neighbors-count 2)
-            (<= live-neighbors-count 3)) 1
-           :else 0)))
+          (if (alive? grid cell)
+            (cond
+             (or
+              (= live-neighbors-count 2)
+              (= live-neighbors-count 3)) 1
+             :else 0)
+            (if (= 3 live-neighbors-count)
+              1
+              0))))
       (for [x (range (height grid))
             y (range (width grid))]
         (vector x y)))))))

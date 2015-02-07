@@ -56,11 +56,11 @@
            (value-at-cell (next-generation [[1 0 0]
                                             [1 0 0]
                                             [0 0 1]]) [1 1])))
-    (is (= 1
+    (is (= 0
            (value-at-cell (next-generation [[0 0 0]
                                             [1 0 0]
                                             [0 0 1]]) [1 1])))
-    (is (= 1
+    (is (= 0
            (value-at-cell (next-generation [[1 0 0]
                                             [1 0 1]
                                             [0 0 1]]) [1 1])))))
