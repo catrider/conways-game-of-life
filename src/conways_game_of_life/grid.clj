@@ -40,7 +40,6 @@
         [cell]
         (let [live-neighbors-count (live-neighbors-count grid cell)]
           (cond
-           (< live-neighbors-count 2) 0
            (and
             (>= live-neighbors-count 2)
             (<= live-neighbors-count 3)) 1

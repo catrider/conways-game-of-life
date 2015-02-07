@@ -24,7 +24,33 @@
       (is (= 1
              (value-at-cell (next-generation [[0 1 0]
                                               [0 1 1]
-                                              [1 0 0]]) [1 1]))))))
+                                              [1 0 0]]) [1 1])))))
+  (testing "Any live cell with more than three live neighbours dies, as if by overcrowding"
+    (testing "Any live cell with 4 neighbours dies"
+      (is (= 0
+             (value-at-cell (next-generation [[1 1 0]
+                                              [0 1 1]
+                                              [1 0 0]]) [1 1]))))
+    (testing "Any live cell with 5 neighbours dies"
+      (is (= 0
+             (value-at-cell (next-generation [[0 1 1]
+                                              [0 1 1]
+                                              [1 1 0]]) [1 1]))))
+    (testing "Any live cell with 6 neighbours dies"
+      (is (= 0
+             (value-at-cell (next-generation [[1 1 1]
+                                              [0 1 1]
+                                              [1 0 1]]) [1 1]))))
+    (testing "Any live cell with 7 neighbours dies"
+      (is (= 0
+             (value-at-cell (next-generation [[0 1 1]
+                                              [1 1 1]
+                                              [1 1 1]]) [1 1]))))
+    (testing "Any live cell with 8 neighbours dies"
+      (is (= 0
+             (value-at-cell (next-generation [[1 1 1]
+                                              [1 1 1]
+                                              [1 1 1]]) [1 1]))))))
 
 (deftest live-neighbors-count-test
   (testing "Returns number of live neighbors of a cell"
