@@ -7,5 +7,5 @@
     (is (= [[0 1 0 1]
             [1 0 0 0]
             [0 1 1 0]
-            [1 1 0 1]] (slurp-grid "resources/grid_text_file.txt")))))
+            [1 1 0 1]] (slurp-grid "resources/grid_test_file.txt")))))
 
