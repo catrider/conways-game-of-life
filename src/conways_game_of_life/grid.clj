@@ -32,27 +32,30 @@
   [grid [cx cy :as target-cell]]
   (= 1 (value-at-cell grid target-cell)))
 
+(defn next-generation-cell
+  [grid cell]
+  (let [live-neighbors-count (live-neighbors-count grid cell)
+        live-neighbors-count-equals? (partial = live-neighbors-count)]
+    (if (alive? grid cell)
+      (cond
+       (or
+        (live-neighbors-count-equals? 2)
+        (live-neighbors-count-equals? 3)) 1
+        :else 0)
+      (if (live-neighbors-count-equals? 3)
+        1
+        0))))
+
+
+(defn all-cells
+  [grid]
+  (for [x (range (height grid))
+            y (range (width grid))]
+        (vector x y)))
+
 (defn next-generation
   [grid]
-  (vec
-   (map
-    vec
-    (partition
-     (width grid)
-     (map
-      (fn next-generation-cell
-        [cell]
-        (let [live-neighbors-count (live-neighbors-count grid cell)
-              live-neighbors-count-equals? (partial = live-neighbors-count)]
-          (if (alive? grid cell)
-            (cond
-             (or
-              (live-neighbors-count-equals? 2)
-              (live-neighbors-count-equals? 3)) 1
-             :else 0)
-            (if (live-neighbors-count-equals? 3)
-              1
-              0))))
-      (for [x (range (height grid))
-            y (range (width grid))]
-        (vector x y)))))))
+  (->> (map (partial next-generation-cell grid) (all-cells grid))
+       (partition (width grid))
+       (map vec)
+       (vec)))
