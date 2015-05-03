@@ -1,4 +1,4 @@
-(ns conways-game-of-life.grid)
+(ns conways-game-of-life.game.grid)
 
 (defn width
   [[first-row & more-rows :as grid]]

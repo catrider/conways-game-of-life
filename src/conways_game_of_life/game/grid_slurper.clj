@@ -1,4 +1,4 @@
-(ns conways-game-of-life.grid-slurper)
+(ns conways-game-of-life.game.grid-slurper)
 
 (defn drop-tail
   [seq]

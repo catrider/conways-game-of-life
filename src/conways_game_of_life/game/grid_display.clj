@@ -1,5 +1,5 @@
-(ns conways-game-of-life.grid-display
-  (:require [conways-game-of-life.grid :as g]))
+(ns conways-game-of-life.game.grid-display
+  (:require [conways-game-of-life.game.grid :as g]))
 
 (defn- thread-last-conj
   [e vec]

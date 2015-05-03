@@ -1,6 +1,6 @@
-(ns conways-game-of-life.grid-display-test
+(ns conways-game-of-life.game.grid-display-test
   (:require [clojure.test :refer :all]
-            [conways-game-of-life.grid-display :refer :all]))
+            [conways-game-of-life.game.grid-display :refer :all]))
 
 (deftest display-grid-test
   (testing "a 4x4 grid is displayed"

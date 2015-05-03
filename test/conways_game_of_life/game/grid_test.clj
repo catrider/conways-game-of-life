@@ -1,6 +1,6 @@
-(ns conways-game-of-life.grid-test
+(ns conways-game-of-life.game.grid-test
   (:require [clojure.test :refer :all]
-            [conways-game-of-life.grid :refer :all]))
+            [conways-game-of-life.game.grid :refer :all]))
 
 (deftest next-test
   (testing "Any live cell with fewer than two live neighbours dies, as if caused by under-population"

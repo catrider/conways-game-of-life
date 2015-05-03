@@ -1,6 +1,6 @@
-(ns conways-game-of-life.grid-slurper-test
+(ns conways-game-of-life.game.grid-slurper-test
   (:require [clojure.test :refer :all]
-            [conways-game-of-life.grid-slurper :refer :all]))
+            [conways-game-of-life.game.grid-slurper :refer :all]))
 
 (deftest slurp-grid-test
   (testing "slurp-grid parses a file and returns a grid"
